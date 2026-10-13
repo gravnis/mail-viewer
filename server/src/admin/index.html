@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/admin/static/admin.css" />
+    <title>Mail Viewer — админка</title>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand"><span class="brand-mark">✉</span> Mail Viewer</div>
+        <nav class="nav">
+          <button class="nav-item active" data-tab="overview"><span>◴</span> Обзор</button>
+          <button class="nav-item" data-tab="mailboxes"><span>✉</span> Почты</button>
+          <button class="nav-item" data-tab="proxies"><span>⛭</span> Прокси</button>
+          <button class="nav-item" data-tab="keys"><span>⚿</span> Ключи доступа</button>
+        </nav>
+        <div class="sidebar-foot">
+          <span class="dot dot-ok"></span> только чтение
+          <button id="logoutBtn" class="btn btn-ghost btn-sm">Выйти</button>
+        </div>
+      </aside>
+
+      <main class="content">
+        <!-- Overview -->
+        <section class="tab active" data-tab="overview">
+          <header class="page-head"><h1>Обзор</h1></header>
+          <div class="stats">
+            <div class="stat-card"><div class="stat-num" id="stMailboxes">0</div><div class="stat-label">Почтовых ящиков</div></div>
+            <div class="stat-card"><div class="stat-num" id="stProxies">0</div><div class="stat-label">Активных прокси</div></div>
+            <div class="stat-card"><div class="stat-num" id="stKeys">0</div><div class="stat-label">Ключей доступа</div></div>
+          </div>
+          <div class="card info-card">
+            <h3>Как это работает</h3>
+            <p class="muted">Вы загружаете сюда список почт (адрес + пароль) и пул прокси. Сотруднику вы в личных сообщениях выдаёте адрес и пароль нужных ему ящиков и ключ доступа. В расширении сотрудник вводит выданный адрес и пароль — и видит только эти ящики, больше ничего. Сервер пускает к почте только если такой адрес есть в этом списке, и ходит в IMAP только через прокси. Отправка писем не поддерживается.</p>
+          </div>
+        </section>
+
+        <!-- Mailboxes -->
+        <section class="tab" data-tab="mailboxes">
+          <header class="page-head">
+            <h1>Почты</h1>
+            <div class="head-actions">
+              <button class="btn btn-primary" id="addMailboxBtn">+ Добавить почты</button>
+            </div>
+          </header>
+          <div class="card">
+            <table class="table" id="mailboxTable">
+              <thead><tr><th>Почта</th><th>Метка</th><th>Тип</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+            <div class="empty-row" id="mailboxEmpty">Пока нет ни одного ящика.</div>
+          </div>
+        </section>
+
+        <!-- Proxies -->
+        <section class="tab" data-tab="proxies">
+          <header class="page-head">
+            <h1>Прокси</h1>
+            <div class="head-actions">
+              <button class="btn" id="importProxiesBtn">Импорт списком</button>
+              <button class="btn btn-primary" id="addProxyBtn">+ Добавить прокси</button>
+            </div>
+          </header>
+          <div class="card">
+            <table class="table" id="proxyTable">
+              <thead><tr><th>Прокси</th><th>Метка</th><th>Статус</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+            <div class="empty-row" id="proxyEmpty">Пул прокси пуст. Без прокси подключение к почте не выполняется.</div>
+          </div>
+        </section>
+
+        <!-- Keys -->
+        <section class="tab" data-tab="keys">
+          <header class="page-head">
+            <h1>Ключи доступа</h1>
+            <div class="head-actions">
+              <button class="btn btn-primary" id="addKeyBtn">+ Создать ключ</button>
+            </div>
+          </header>
+          <div class="card">
+            <table class="table" id="keyTable">
+              <thead><tr><th>Название</th><th>Ключ</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+            <div class="empty-row" id="keyEmpty">Нет ключей. Создайте ключ и выдайте его сотруднику.</div>
+          </div>
+          <p class="muted hint-block">Ключ нужен, чтобы вообще пользоваться расширением. Выдавайте сотруднику ключ вместе с адресами и паролями ящиков, которые он должен вести.</p>
+        </section>
+      </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-backdrop hidden" id="modal">
+      <div class="modal">
+        <div class="modal-head"><h2 id="modalTitle"></h2><button class="modal-close" id="modalClose">×</button></div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-foot" id="modalFoot"></div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <script src="/admin/static/admin.js"></script>
+  </body>
+</html>

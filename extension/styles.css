@@ -1,0 +1,128 @@
+:root {
+  --bg: #ffffff;
+  --panel: #fbfbfe;
+  --fg: #11131a;
+  --muted: #6b7280;
+  --line: #e7e8ef;
+  --accent: #4f46e5;
+  --accent-2: #6366f1;
+  --accent-soft: #eef0ff;
+  --danger: #dc2626;
+  --ok: #16a34a;
+  --unread: #eef0ff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #171922;
+    --panel: #1c1f2a;
+    --fg: #e8e9ef;
+    --muted: #9aa0ad;
+    --line: #262a36;
+    --accent: #7c7bff;
+    --accent-2: #8b8bff;
+    --accent-soft: #23243a;
+    --danger: #f87171;
+    --ok: #4ade80;
+    --unread: #20233440;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  width: 390px;
+  min-height: 460px;
+  max-height: 600px;
+  margin: 0;
+  font: 14px/1.45 -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+body.options { width: 460px; padding: 26px; min-height: auto; max-height: none; }
+
+.topbar { display: flex; align-items: center; gap: 9px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.brand { font-weight: 700; display: flex; align-items: center; gap: 8px; letter-spacing: -.01em; }
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; font-size: 14px;
+}
+.badge-read { font-size: 11px; color: var(--ok); border: 1px solid var(--ok); border-radius: 20px; padding: 2px 9px; font-weight: 600; }
+.icon-btn {
+  margin-left: auto; background: none; border: 1px solid var(--line); border-radius: 9px;
+  width: 32px; height: 32px; cursor: pointer; color: var(--fg); font-size: 15px;
+}
+.account-bar .icon-btn, .tabs .icon-btn { margin-left: 0; }
+.icon-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+.spin { animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.account-bar { display: flex; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.account-select { flex: 1; }
+select, input {
+  font: inherit; color: var(--fg); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px;
+}
+select:focus, input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+.tabs { display: flex; align-items: center; gap: 7px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.tab { padding: 6px 14px; border-radius: 18px; border: 1px solid var(--line); font-size: 13px; background: var(--bg); color: var(--fg); cursor: pointer; font-weight: 500; }
+.tab:hover { background: var(--accent-soft); }
+.tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.folder-select { margin-left: auto; max-width: 150px; font-size: 12px; }
+
+.list { flex: 1; overflow-y: auto; }
+.mail { padding: 11px 14px; border-bottom: 1px solid var(--line); cursor: pointer; transition: background .1s; }
+.mail:hover { background: var(--accent-soft); }
+.mail.unread { background: var(--unread); }
+.mail.unread .mail-subject { font-weight: 700; color: var(--fg); }
+.mail-top { display: flex; justify-content: space-between; gap: 8px; }
+.mail-from { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mail.unread .mail-from { font-weight: 600; }
+.mail-date { font-size: 12px; color: var(--muted); flex-shrink: 0; }
+.mail-subject { font-size: 13px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 3px; }
+
+.empty { padding: 40px 20px; text-align: center; color: var(--muted); line-height: 1.6; }
+.empty.error { color: var(--danger); }
+
+.reader { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.back { align-self: flex-start; margin: 10px 14px 6px; border: none; color: var(--accent); background: none; cursor: pointer; font: inherit; font-weight: 600; }
+.reader-head { padding: 0 14px 12px; border-bottom: 1px solid var(--line); }
+.r-subject { font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+.r-meta { font-size: 12px; color: var(--muted); }
+.r-att { font-size: 12px; color: var(--muted); margin-top: 7px; }
+.reader-body { flex: 1; overflow: auto; }
+.html-frame { width: 100%; height: 330px; border: 0; background: #fff; }
+.r-text { padding: 14px; white-space: pre-wrap; word-break: break-word; }
+.loading { padding: 16px; color: var(--muted); }
+
+.status { font-size: 12px; padding: 7px 14px; color: var(--muted); border-top: 1px solid var(--line); min-height: 18px; }
+.status.ok { color: var(--ok); }
+.status.error { color: var(--danger); }
+.hidden { display: none !important; }
+
+/* ---------- options page ---------- */
+body.options h1 { font-size: 20px; margin: 0 0 6px; }
+body.options label { display: block; margin: 16px 0 6px; font-size: 13px; color: var(--muted); }
+body.options input { width: 100%; }
+body.options .row { display: flex; gap: 10px; margin-top: 20px; }
+body.options button {
+  font: inherit; font-weight: 500; padding: 10px 16px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer;
+}
+body.options button:hover { background: var(--accent-soft); }
+body.options button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+body.options button.primary:hover { background: var(--accent-2); }
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+.field-hint { display: block; font-size: 11.5px; color: var(--muted); margin-top: 4px; font-weight: 400; }
+.panel label { display: block; margin-bottom: 12px; font-size: 13px; color: var(--muted); }
+.panel label input { display: block; width: 100%; margin-top: 5px; color: var(--fg); }
+.panel label textarea { display: block; width: 100%; margin-top: 5px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; font: inherit; font-size: 12px; resize: vertical; word-break: break-all; }
+.panel label textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.panel h2 { font-size: 15px; margin: 0 0 12px; }
+.panel .row { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+.panel button { font: inherit; padding: 8px 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--bg); color: var(--fg); cursor: pointer; }
+.panel button:hover { background: var(--accent-soft); }
+.panel button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.panel button.danger { color: var(--danger); border-color: transparent; }

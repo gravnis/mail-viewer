@@ -1,0 +1,11 @@
+# Никогда не коммитим секреты и данные
+**/.env
+**/data/
+**/secret.key
+**/*.db
+**/*.db-wal
+**/*.db-shm
+node_modules/
+**/node_modules/
+*.log
+.DS_Store

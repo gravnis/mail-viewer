@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Mail Viewer</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">✉</span> Mail&nbsp;Viewer</div>
+      <span class="badge-read" title="Расширение работает только на чтение">только чтение</span>
+      <button id="settingsBtn" class="icon-btn" title="Настройки">⚙</button>
+    </header>
+
+    <section id="accountBar" class="account-bar">
+      <select id="accountSelect" class="account-select" aria-label="Ящик"></select>
+      <button id="addAccountBtn" class="icon-btn" title="Добавить ящик">＋</button>
+      <button id="refreshBtn" class="icon-btn" title="Обновить">⟳</button>
+    </section>
+
+    <section id="addForm" class="panel hidden">
+      <h2>Добавить ящик</h2>
+      <label>Строка аккаунта
+        <textarea id="f_line" rows="3" placeholder="вставьте строку, которую выдал администратор" autocomplete="off"></textarea>
+        <span class="field-hint">Вставьте строку аккаунта целиком, как её выдал администратор (email----пароль----…). Работает, только если она есть в базе.</span>
+      </label>
+      <label>Название (необязательно)<input id="f_label" type="text" placeholder="например: рабочий" autocomplete="off" /></label>
+      <div class="row">
+        <button id="saveAccountBtn" class="primary">Сохранить</button>
+        <button id="cancelAccountBtn">Отмена</button>
+        <button id="deleteAccountBtn" class="danger hidden">Удалить</button>
+      </div>
+      <p class="hint">Данные хранятся только в этом браузере. Сервер их не сохраняет.</p>
+    </section>
+
+    <nav id="tabs" class="tabs hidden">
+      <button class="tab active" data-view="unseen">Новые</button>
+      <button class="tab" data-view="all">Все</button>
+      <select id="folderSelect" class="folder-select" aria-label="Папка"></select>
+    </nav>
+
+    <main id="list" class="list"></main>
+
+    <section id="reader" class="reader hidden">
+      <button id="backBtn" class="back">‹ Назад</button>
+      <div id="readerHead" class="reader-head"></div>
+      <div id="readerBody" class="reader-body"></div>
+    </section>
+
+    <div id="status" class="status"></div>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

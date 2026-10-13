@@ -1,0 +1,20 @@
+{
+  "name": "mail-viewer-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Read-only IMAP gateway for the Mail Viewer Chrome extension. All IMAP traffic goes through proxies.",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "start": "node --experimental-sqlite src/index.js"
+  },
+  "dependencies": {
+    "https-proxy-agent": "^9.1.0",
+    "imapflow": "^2.4.0",
+    "mailparser": "^3.9.38",
+    "socks-proxy-agent": "^10.1.0"
+  }
+}

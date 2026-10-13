@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Mail Viewer — настройки</title>
+  </head>
+  <body class="options">
+    <h1>Настройки Mail Viewer</h1>
+    <p class="hint">
+      Эти параметры даёт администратор. Расширение подключается только к указанному серверу;
+      почтовые серверы оно напрямую не трогает.
+    </p>
+    <label>Адрес сервера
+      <input id="serverUrl" type="url" placeholder="https://mail.example.com" autocomplete="off" />
+    </label>
+    <label>Ключ доступа
+      <input id="accessKey" type="password" placeholder="ключ от администратора" autocomplete="off" />
+    </label>
+    <div class="row">
+      <button id="saveBtn" class="primary">Сохранить</button>
+      <button id="testBtn">Проверить связь</button>
+    </div>
+    <div id="msg" class="status"></div>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

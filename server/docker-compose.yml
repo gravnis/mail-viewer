@@ -1,0 +1,29 @@
+services:
+  mail-viewer:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      DATA_DIR: /data
+    volumes:
+      - mailviewer-data:/data
+    # Публикуем только на localhost хоста. Наружу — через Cloudflare Tunnel
+    # (сервис cloudflared ниже), прямого проброса порта в интернет нет.
+    ports:
+      - "127.0.0.1:8787:8787"
+
+  # Необязательно: скрывает входной IP сервера. Расширение подключается к
+  # домену Cloudflare, origin-IP наружу не виден, открытых портов на сервере нет.
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - mail-viewer
+    profiles: ["tunnel"]
+
+volumes:
+  mailviewer-data:

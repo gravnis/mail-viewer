@@ -1,0 +1,29 @@
+# systemd-юнит для запуска без Docker.
+# 1) положить проект в /opt/mail-viewer/server, создать .env и proxies.txt
+# 2) sudo cp mail-viewer.service /etc/systemd/system/
+# 3) sudo systemctl enable --now mail-viewer
+
+[Unit]
+Description=Mail Viewer IMAP gateway (read-only, proxied)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/mail-viewer/server
+ExecStart=/usr/bin/node --experimental-sqlite src/index.js
+EnvironmentFile=/opt/mail-viewer/server/.env
+Restart=on-failure
+RestartSec=3
+User=mailviewer
+Group=mailviewer
+
+# Усиление: сервису нужен только свой каталог.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/opt/mail-viewer/server/data
+
+[Install]
+WantedBy=multi-user.target

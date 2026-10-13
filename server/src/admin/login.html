@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/admin/static/admin.css" />
+    <title>Mail Viewer — вход</title>
+  </head>
+  <body class="login-page">
+    <form id="loginForm" class="login-card" autocomplete="off">
+      <div class="login-logo">✉</div>
+      <h1>Mail Viewer</h1>
+      <p class="muted">Панель администратора</p>
+      <input id="password" type="password" placeholder="Пароль администратора" autocomplete="current-password" />
+      <button type="submit" class="btn btn-primary btn-block">Войти</button>
+      <div id="loginError" class="form-error"></div>
+    </form>
+    <script src="/admin/static/login.js"></script>
+  </body>
+</html>
